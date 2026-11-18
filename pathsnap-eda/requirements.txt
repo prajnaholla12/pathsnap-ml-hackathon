@@ -1,0 +1,3 @@
+-r ../pathsnap-training/requirements.txt
+pandas
+matplotlib

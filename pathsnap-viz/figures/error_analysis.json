@@ -1,0 +1,26 @@
+{
+  "accuracy_by_speed": {
+    "classifier + HMM": {
+      "< 1 m/s": 0.6929,
+      "1-5": 0.7282,
+      "5-15": 0.9275,
+      "> 15": 0.9938
+    },
+    "classifier only": {
+      "< 1 m/s": 0.4803,
+      "1-5": 0.5796,
+      "5-15": 0.8747,
+      "> 15": 0.9699
+    }
+  },
+  "readings_per_speed_bin": {
+    "< 1 m/s": 254,
+    "1-5": 3271,
+    "5-15": 7782,
+    "> 15": 7853
+  },
+  "reverse_direction_share_of_errors": {
+    "classifier + HMM": 0.581,
+    "classifier only": 0.475
+  }
+}

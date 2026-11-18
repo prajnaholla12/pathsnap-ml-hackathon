@@ -1,0 +1,12 @@
+,student_test,train
+trips,10.0,80.0
+observations,19160.0,208417.0
+observations_median,1420.0,1529.0
+arcs_min,3577.0,649.0
+arcs_max,56027.0,307392.0
+invalid_rows,0.0,0.0
+reordered_trips,0.0,0.0
+duplicate_timestamps,0.0,0.0
+gaps_over_10s,27.0,590.0
+maximum_gap_s,210.0,153064.0
+trips_alignment_over_50m_20pct,0.0,2.0

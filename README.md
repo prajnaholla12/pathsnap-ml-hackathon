@@ -1,36 +1,60 @@
-# PathSnap model experiments
+# PathSnap – GPS map-matching and route reconstruction
 
-This folder contains the five classifier baselines and their actual experiment outputs. Bayesian tuning, HMM/Viterbi, Folium maps, and the two-laptop deployment are separate stages.
+UE24CS352A Machine Learning hackathon, PES University (RR campus).
 
-## Reproduce
+For every GPS reading of a trip, PathSnap predicts the road arc the vehicle was on and
+rebuilds the driven route. Each stage has its own folder and README:
 
-The source code, trained models, and recorded results are in [pathsnap-training](pathsnap-training/). Use Python 3.14 and the original student dataset ZIP:
+| stage | folder | what it does |
+|---|---|---|
+| 1 | [pathsnap-training](pathsnap-training/) | candidates, features, label alignment, five baseline classifiers |
+| 2 | [pathsnap-eda](pathsnap-eda/) | dataset exploration |
+| 3 | [pathsnap-tuning](pathsnap-tuning/) | Bayesian (Optuna TPE) tuning of HistGradientBoosting |
+| 4 | [pathsnap-hmm](pathsnap-hmm/) | HMM + Viterbi decoding, decoder tuning, comparison |
+| 5 | [pathsnap-viz](pathsnap-viz/) | Folium maps and all figures |
+| 6 | [pathsnap-api](pathsnap-api/) | FastAPI backend (Laptop 1) |
+| 7 | [pathsnap-ui](pathsnap-ui/) | evaluator page (Laptop 2) |
+| – | [report](report/) | technical report (PDF) |
 
-```powershell
+## Results on student_test (10 trips, 19,160 readings)
+
+| system | top-1 accuracy | Macro F1 | route F1 |
+|---|---|---|---|
+| HistGB (baseline, train.py) | 85.30% | 0.7571 | – |
+| HistGB tuned | 85.81% | 0.7700 | 0.806 |
+| HistGB tuned + HMM/Viterbi | **91.75%** | **0.9033** | **0.972** |
+
+## Reproduce everything
+
+```bash
 cd pathsnap-training
 python -m pip install -r requirements.txt
-python data.py --zip "$env:USERPROFILE\Downloads\Student folder.zip" --out cache
+python data.py --zip "<path>/Student folder.zip" --out cache
 python train.py --cache cache --out results
-python verify.py --cache cache --results results
-python plot_results.py results/model_comparison.csv
+cd ../pathsnap-eda    && python eda.py --cache ../pathsnap-training/cache
+cd ../pathsnap-tuning && python -m pip install -r requirements.txt && python tune.py --cache ../pathsnap-training/cache --trials 20
+cd ../pathsnap-hmm    && python decode.py --cache ../pathsnap-training/cache
+cd ../pathsnap-viz    && python -m pip install -r requirements.txt && python make_maps.py --cache ../pathsnap-training/cache && python plots.py --cache ../pathsnap-training/cache
+cd .. && python report/build_report.py
 ```
 
-Use a fresh cache for a different archive. The raw data and feature cache are excluded from this bundle. The GitHub video was located, but GitHub would not preview it at its size. The run used the written guidelines and inspected archive.
+## Final evaluation (two laptops)
 
-## Data and labels
+**Laptop 1 (API):** copy the ten evaluation trips to `data/eval/<trip_id>/`, then run:
 
-The student archive contains 80 training trips with 208,417 GPS readings and 10 student-test trips with 19,160 readings. No evaluator partition was used. Road segments have trip-local row IDs. Each estimator learns a binary match score for a candidate segment from its features, allowing the same model to score segments on unseen trips.
+```bash
+cd pathsnap-api && python -m pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
 
-Candidate generation finds the eight nearest finite segments in a local equirectangular projection, breaking distance ties by arc ID. Eight is an experiment setting. Emission inputs include distance, direction agreement, estimated speed, segment length, position along the segment, candidate rank, and distances from adjacent observations. Candidate generation and features do not use the reference route.
+Keep this terminal open; it is the API log the evaluator sees.
 
-The route file contains an ordered segment sequence. For supervision and scoring, a separate dynamic program assigns GPS readings to nondecreasing positions in that sequence, minimizing summed point-to-segment distance. This creates derived point labels from the supplied route. Label ambiguity at junctions, GPS drift, and errors in the supplied route can affect all reported scores. The label aligner is distinct from the future prediction-time HMM.
+**Laptop 2 (UI):**
 
-## Evaluation
+```bash
+cd pathsnap-ui && python -m http.server 5500
+```
 
-- Five folds hold out complete training trips. The final baseline weights fit all 80 training trips and are evaluated on the same 10 student-test trips. Logistic regression scaling is fit independently inside each fold.
-- Top-1 accuracy is pooled over student-test GPS observations. Candidate misses count as incorrect. Macro F1 averages arc classes within each trip and then averages trips equally. Arc IDs are never treated as shared classes across trips.
-- Log loss covers observations with a reference arc among the eight candidates. Candidate scores are normalized within each candidate set. Coverage is reported separately. Candidate misses are excluded from supervised training rows.
-- Direct route continuity is the fraction of adjacent predictions that stay on the same arc or move onto a directly connected directed arc. A legitimate move over intermediate arcs may fail this check. Inference time measures estimator scoring and ranking on cached features.
-- Each model folder contains its settings, a fitted estimator, per-trip scores, held-out fold scores, predictions, and sparse arc confusion counts.
-
-Histogram Gradient Boosting is the leading baseline for a tuning stage that uses cross-validation Macro F1 as its objective. Random Forest is marginally ahead on student-test accuracy and Macro F1, so preserve both baseline results when discussing model selection.
+Open `http://localhost:5500`, enter `http://<laptop-1-ip>:8000` and press Connect.
+The ten trips appear. Selecting one sends only its id to the API, which runs the
+whole pipeline and scores it on the server. The reference route never leaves Laptop 1.
