@@ -1,0 +1,8 @@
+{
+  "w_emit": 0.25,
+  "beta": 25.0,
+  "beta_gap": 1.0,
+  "backward_factor": 3.0,
+  "disconnect_logp": -40.0,
+  "min_search_m": 400.0
+}

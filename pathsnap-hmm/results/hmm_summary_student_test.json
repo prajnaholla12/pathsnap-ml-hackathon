@@ -1,0 +1,14 @@
+{
+  "clf_top1_accuracy": 0.8581419624217119,
+  "hmm_top1_accuracy": 0.9175365344467641,
+  "clf_macro_f1": 0.7699679922267463,
+  "hmm_macro_f1": 0.9033340638873149,
+  "clf_direct_continuity": 0.9330082959889199,
+  "hmm_direct_continuity": 0.9771926409146419,
+  "clf_route_f1": 0.806360706073494,
+  "hmm_route_f1": 0.9717864009627333,
+  "clf_arc_runs": 5541,
+  "hmm_arc_runs": 3471,
+  "reference_arc_runs": 3108,
+  "trips_hmm_top1_not_better": []
+}
