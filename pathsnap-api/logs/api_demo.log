@@ -1,0 +1,58 @@
+INFO:     Started server process [1286]
+INFO:     Waiting for application startup.
+10:22:51 | INFO | model: pathsnap-tuning/results/tuned_model/model.joblib
+10:22:51 | INFO | decoder: DecoderParams(w_emit=0.25, beta=25.0, beta_gap=1.0, backward_factor=3.0, disconnect_logp=-40.0, min_search_m=400.0)
+10:22:51 | INFO | 10 evaluation trips in data/eval: ['00000000', '00000007', '00000009', '00000040', '00000052', '00000056', '00000065', '00000076', '00000077', '00000091']
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+10:22:58 | INFO | GET /trips from 127.0.0.1
+INFO:     127.0.0.1:46784 - "GET /trips HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56642 - "GET /health HTTP/1.1" 200 OK
+10:23:03 | INFO | GET /trips from 127.0.0.1
+INFO:     127.0.0.1:56642 - "GET /trips HTTP/1.1" 200 OK
+10:23:03 | INFO | >>> POST /predict trip=00000056 from 127.0.0.1
+10:23:04 | INFO |     3958 GPS readings, 27631 arcs in network | features 0.22s, classifier 0.26s, viterbi 0.36s
+10:23:06 | INFO |     accuracy: HMM top-1 95.70% | classifier-only 89.19% | HMM macro F1 0.9350 | route F1 0.976 | 2.32s total
+INFO:     127.0.0.1:56642 - "POST /predict HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56648 - "GET /health HTTP/1.1" 200 OK
+10:23:08 | INFO | GET /trips from 127.0.0.1
+INFO:     127.0.0.1:56648 - "GET /trips HTTP/1.1" 200 OK
+10:23:09 | INFO | >>> POST /predict trip=00000077 from 127.0.0.1
+10:23:10 | INFO |     3911 GPS readings, 9622 arcs in network | features 0.15s, classifier 0.22s, viterbi 0.30s
+10:23:10 | INFO |     accuracy: HMM top-1 79.06% | classifier-only 68.29% | HMM macro F1 0.8142 | route F1 0.969 | 0.78s total
+INFO:     127.0.0.1:56648 - "POST /predict HTTP/1.1" 200 OK
+10:23:12 | INFO | >>> POST /predict trip=00000000 from 127.0.0.1
+10:23:12 | INFO |     2503 GPS readings, 18196 arcs in network | features 0.10s, classifier 0.14s, viterbi 0.16s
+10:23:12 | INFO |     accuracy: HMM top-1 96.08% | classifier-only 94.33% | HMM macro F1 0.8762 | route F1 0.993 | 0.45s total
+INFO:     127.0.0.1:58686 - "POST /predict HTTP/1.1" 200 OK
+10:23:12 | INFO | >>> POST /predict trip=00000007 from 127.0.0.1
+10:23:13 | INFO |     1354 GPS readings, 4369 arcs in network | features 0.05s, classifier 0.08s, viterbi 0.08s
+10:23:13 | INFO |     accuracy: HMM top-1 99.34% | classifier-only 94.83% | HMM macro F1 0.9814 | route F1 0.993 | 0.23s total
+INFO:     127.0.0.1:58696 - "POST /predict HTTP/1.1" 200 OK
+10:23:13 | INFO | >>> POST /predict trip=00000009 from 127.0.0.1
+10:23:13 | INFO |     1049 GPS readings, 13106 arcs in network | features 0.04s, classifier 0.07s, viterbi 0.20s
+10:23:13 | INFO |     accuracy: HMM top-1 91.90% | classifier-only 86.37% | HMM macro F1 0.8943 | route F1 0.950 | 0.35s total
+INFO:     127.0.0.1:58698 - "POST /predict HTTP/1.1" 200 OK
+10:23:13 | INFO | >>> POST /predict trip=00000040 from 127.0.0.1
+10:23:14 | INFO |     2995 GPS readings, 27026 arcs in network | features 0.12s, classifier 0.15s, viterbi 0.18s
+10:23:14 | INFO |     accuracy: HMM top-1 94.32% | classifier-only 91.39% | HMM macro F1 0.9735 | route F1 0.998 | 0.55s total
+INFO:     127.0.0.1:58710 - "POST /predict HTTP/1.1" 200 OK
+10:23:14 | INFO | >>> POST /predict trip=00000052 from 127.0.0.1
+10:23:14 | INFO |     262 GPS readings, 3577 arcs in network | features 0.01s, classifier 0.02s, viterbi 0.02s
+10:23:14 | INFO |     accuracy: HMM top-1 100.00% | classifier-only 96.18% | HMM macro F1 1.0000 | route F1 0.998 | 0.06s total
+INFO:     127.0.0.1:58716 - "POST /predict HTTP/1.1" 200 OK
+10:23:14 | INFO | >>> POST /predict trip=00000065 from 127.0.0.1
+10:23:14 | INFO |     768 GPS readings, 13184 arcs in network | features 0.04s, classifier 0.07s, viterbi 0.09s
+10:23:14 | INFO |     accuracy: HMM top-1 88.67% | classifier-only 82.81% | HMM macro F1 0.8625 | route F1 0.893 | 0.22s total
+INFO:     127.0.0.1:58720 - "POST /predict HTTP/1.1" 200 OK
+10:23:14 | INFO | >>> POST /predict trip=00000076 from 127.0.0.1
+10:23:15 | INFO |     1486 GPS readings, 56027 arcs in network | features 0.16s, classifier 0.10s, viterbi 0.50s
+10:23:15 | INFO |     accuracy: HMM top-1 94.62% | classifier-only 87.95% | HMM macro F1 0.8110 | route F1 0.960 | 0.82s total
+INFO:     127.0.0.1:58722 - "POST /predict HTTP/1.1" 200 OK
+10:23:15 | INFO | >>> POST /predict trip=00000091 from 127.0.0.1
+10:23:15 | INFO |     874 GPS readings, 12303 arcs in network | features 0.04s, classifier 0.07s, viterbi 0.11s
+10:23:15 | INFO |     accuracy: HMM top-1 92.91% | classifier-only 86.73% | HMM macro F1 0.8852 | route F1 0.988 | 0.24s total
+INFO:     127.0.0.1:58736 - "POST /predict HTTP/1.1" 200 OK
+10:23:15 | INFO | >>> POST /predict trip=12345678 from 127.0.0.1
+10:23:15 | WARNING | unknown trip id 12345678
+INFO:     127.0.0.1:58748 - "POST /predict HTTP/1.1" 404 Not Found
