@@ -1,0 +1,2 @@
+-r ../pathsnap-training/requirements.txt
+optuna
