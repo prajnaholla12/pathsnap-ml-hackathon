@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "candidate_count": 8,
+  "features": [
+    "log_distance_m",
+    "heading_cosine",
+    "log_speed_mps",
+    "log_segment_length_m",
+    "projection_fraction",
+    "distance_rank",
+    "log_previous_distance_m",
+    "log_next_distance_m"
+  ],
+  "sklearn_version": "1.8.0",
+  "numpy_version": "2.4.4"
+}

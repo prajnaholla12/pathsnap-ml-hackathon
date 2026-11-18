@@ -1,0 +1,19 @@
+{
+  "model": "GaussianNB()",
+  "parameters": {
+    "priors": null,
+    "var_smoothing": 1e-09
+  },
+  "feature_names": [
+    "log_distance_m",
+    "heading_cosine",
+    "log_speed_mps",
+    "log_segment_length_m",
+    "projection_fraction",
+    "distance_rank",
+    "log_previous_distance_m",
+    "log_next_distance_m"
+  ],
+  "candidate_count": 8,
+  "seed": 42
+}

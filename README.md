@@ -4,9 +4,10 @@ This folder contains the five classifier baselines and their actual experiment o
 
 ## Reproduce
 
-From this folder, using Python 3.14 and the original student dataset ZIP:
+The source code, trained models, and recorded results are in [pathsnap-training](pathsnap-training/). Use Python 3.14 and the original student dataset ZIP:
 
 ```powershell
+cd pathsnap-training
 python -m pip install -r requirements.txt
 python data.py --zip "$env:USERPROFILE\Downloads\Student folder.zip" --out cache
 python train.py --cache cache --out results

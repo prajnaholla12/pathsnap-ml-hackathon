@@ -1,0 +1,30 @@
+{
+  "model": "DecisionTreeClassifier(max_depth=10, min_samples_leaf=30, random_state=42)",
+  "parameters": {
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": 10,
+    "max_features": null,
+    "max_leaf_nodes": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 30,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "random_state": 42,
+    "splitter": "best"
+  },
+  "feature_names": [
+    "log_distance_m",
+    "heading_cosine",
+    "log_speed_mps",
+    "log_segment_length_m",
+    "projection_fraction",
+    "distance_rank",
+    "log_previous_distance_m",
+    "log_next_distance_m"
+  ],
+  "candidate_count": 8,
+  "seed": 42
+}
